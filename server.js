@@ -1,17 +1,19 @@
 const express = require("express"); 
-const path = require("path");
-const notes = require("./db/db.json"); 
-
 const app = express(); 
 
+const htmlRouter = require("./routes/html"); 
+const apiRouter = require("./routes/api"); 
+
 app.use(express.static("public")); 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); 
 
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-}); 
+app.use("*", htmlRouter); 
+app.use("/api", apiRouter); 
 
-app.get("/notes", (req, res) => {
-    res.sendFile(path.join(__dirname, 'notes.html'));
-});
 
-app.get("/api/notes"), (req, res) => res.json(notes); 
+ 
+
+
+
+ 
