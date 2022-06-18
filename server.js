@@ -8,7 +8,7 @@ const apiRouter = require("./routes/api");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); 
 
-app.use("*", htmlRouter); 
+app.use("/", htmlRouter); 
 app.use("/api", apiRouter); 
 
 app.use(express.static("public")); 
