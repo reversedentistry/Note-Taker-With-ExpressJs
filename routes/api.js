@@ -1,12 +1,15 @@
 const router = require("express").Router(); 
-const notes = require("../db/db.json");
 const { v4: uuidv4 } = require("uuid");
-const path = require("path");
 const fs = require("fs"); 
+const notes = require("../db/db.json");
 
-router.get("/api/notes"), (req, res) => {
+router.get("/notes", (req, res) => {
+    console.info(`${req.method} request received to get notes`);
     res.json(notes);
-}; 
+}); 
+
+// router.get('/notes', (req, res) => res.json(notes));
+
 router.post("/notes", (req, res) => {
     console.info(`${req.method} request received to add a note`); 
     req.body.id = uuidv4(); 
