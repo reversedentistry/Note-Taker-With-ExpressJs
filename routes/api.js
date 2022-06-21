@@ -33,7 +33,7 @@ router.delete("/notes/:id", (req, res) => {
     for (i = 0; i < notes.length; i++) {
         if (deletedNote === notes[i].id) {
             notes.splice(i, 1); 
-            fs.writeFile("./db/db.json", JSON.stringify(notes, null), (writeErr) =>
+            fs.writeFile("./db/db.json", JSON.stringify(notes, null, 4), (writeErr) =>
             writeErr
               ? console.error(writeErr)
               : console.info('Successfully deleted note'));
