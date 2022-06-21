@@ -8,8 +8,6 @@ router.get("/notes", (req, res) => {
     res.json(notes);
 }); 
 
-// router.get('/notes', (req, res) => res.json(notes));
-
 router.post("/notes", (req, res) => {
     console.info(`${req.method} request received to add a note`); 
     req.body.id = uuidv4(); 
@@ -25,8 +23,23 @@ router.post("/notes", (req, res) => {
             writeErr
               ? console.error(writeErr)
               : console.info('Successfully updated notes!'));
+            res.json(parsedNotes);    
         }
     })
 }); 
+
+router.delete("/notes/:id", (req, res) => {
+    let deletedNote = req.params.id; 
+    for (i = 0; i < notes.length; i++) {
+        if (deletedNote === notes[i].id) {
+            notes.splice(i, 1); 
+            fs.writeFile("./db/db.json", JSON.stringify(notes, null), (writeErr) =>
+            writeErr
+              ? console.error(writeErr)
+              : console.info('Successfully deleted note'));
+        }
+
+    }
+})
 
 module.exports = router; 
