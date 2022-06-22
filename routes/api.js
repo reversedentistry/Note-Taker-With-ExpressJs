@@ -1,11 +1,12 @@
 const router = require("express").Router(); 
 const { v4: uuidv4 } = require("uuid");
-const fs = require("fs"); 
+const fs = require("fs");
+const path = require("path");  
 const notes = require("../db/db.json");
 
 router.get("/notes", (req, res) => {
     console.info(`${req.method} request received to get notes`);
-    res.json(notes);
+    res.sendFile(path.join(__dirname, '../db/db.json'));   
 }); 
 
 router.post("/notes", (req, res) => {
@@ -37,6 +38,7 @@ router.delete("/notes/:id", (req, res) => {
             writeErr
               ? console.error(writeErr)
               : console.info('Successfully deleted note'));
+            res.json(notes); 
         }
 
     }
